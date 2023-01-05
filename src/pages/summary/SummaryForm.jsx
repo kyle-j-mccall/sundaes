@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function SummaryForm() {
   const [termsChecked, setTermsChecked] = useState(false);
+  const blah = 'blah';
 
   const checkboxLabel = (
     <span>
