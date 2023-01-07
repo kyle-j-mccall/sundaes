@@ -1,10 +1,24 @@
 import React from 'react';
 import { Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { useOrderDetails } from '../../../context/orderdetails';
 
 export default function ToppingOption({ name, imagePath }) {
+  const { updateItemCount } = useOrderDetails();
+  const handleChange = (e) => {
+    updateItemCount(name, e.target.checked ? 1 : 0, 'toppings');
+  };
+
   return (
-    <Col>
-      <img src={`http://localhost:3030/${imagePath}`} alt={`${name} topping`} />
+    <Col xs={6} sm={4} md={3} lg={2} style={{ textAlign: 'center' }}>
+      <img
+        style={{ width: '75%' }}
+        src={`http://localhost:3030/${imagePath}`}
+        alt={`${name} topping`}
+      />
+      <Form.Group controlId={`${name}-topping-checkbox`}>
+        <Form.Check type="checkbox" onChange={handleChange} label={name} />
+      </Form.Group>
     </Col>
   );
 }

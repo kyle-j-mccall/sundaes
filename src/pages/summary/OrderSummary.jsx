@@ -1,30 +1,27 @@
 import React from 'react';
 import SummaryForm from './SummaryForm';
+import { useOrderDetails } from '../../context/orderdetails';
+import { formatCurrency } from '../../utilities';
 
 export default function OrderSummary() {
+  const { totals, optionCounts } = useOrderDetails();
+  const scoopArray = Object.entries(optionCounts.scoops);
+  const scoopList = scoopArray.map(([key, value]) => (
+    <li key={key}>
+      {value} {key}
+    </li>
+  ));
+
+  const toppingsArray = Object.keys(optionCounts.toppings);
+  const toppingList = toppingsArray.map((key) => <li key={key}>{key}</li>);
   return (
     <div>
-      <div className="title-container">
-        <h2>Order Summary</h2>
-      </div>
-      <div className="scoops-container">
-        <h3>Scoops:</h3>
-        <ul>
-          <li>filler</li>
-        </ul>
-      </div>
-      <div className="toppings container">
-        <h3>Toppings:</h3>
-        <ul>
-          <li>filler</li>
-        </ul>
-        <div className="total-container">
-          <h3>Total:</h3>
-        </div>
-        <div className="summary-form-container">
-          <SummaryForm />
-        </div>
-      </div>
+      <h1>Order Summary</h1>
+      <h2>Soops: {formatCurrency(totals.scoops)} </h2>
+      <ul>{scoopList}</ul>
+      <h2>Soops: {formatCurrency(totals.toppings)} </h2>
+      <ul>{toppingList}</ul>
+      <SummaryForm />
     </div>
   );
 }

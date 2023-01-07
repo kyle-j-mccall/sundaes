@@ -1,12 +1,12 @@
 import { createContext, useContext, useState } from 'react';
 import { pricePerItem } from '../constants';
 
-const orderDetails = createContext();
+const OrderDetails = createContext();
 
 // create custom hook to check whether we're in a provider
 
 export function useOrderDetails() {
-  const contextValue = useContext(orderDetails);
+  const contextValue = useContext(OrderDetails);
 
   if (!contextValue) {
     throw new Error('useOrderDetails must be called from withing an orderDetailsProvider');
@@ -54,6 +54,6 @@ export function OrderDetailsProvider(props) {
     toppings: calculateTotal('toppings'),
   };
 
-  const value = { optionCounts, updateItemCount, resetOrder, totals };
-  return <OrderDetailsProvider.Provider value={value} {...props} />;
+  const value = { optionCounts, totals, updateItemCount, resetOrder };
+  return <OrderDetails.Provider value={value} {...props} />;
 }
